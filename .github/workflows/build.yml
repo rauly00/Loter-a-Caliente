@@ -1,0 +1,31 @@
+name: Build APK
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Instalar Flet
+        run: pip install flet
+
+      - name: Construir APK
+        run: flet build apk
+
+      - name: Subir APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: bola-caliente-apk
+          path: build/apk/
