@@ -1,7 +1,10 @@
-La-Bola-Caliente/
+Loteria-Caliente/
 │
 ├── main.py
 ├── requirements.txt
+├── assets/
+│   └── sonido.mp3
+│
 └── .github/
     └── workflows/
         └── build.yml
