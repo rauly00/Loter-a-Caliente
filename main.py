@@ -4,7 +4,7 @@ import asyncio
 
 def main(page: ft.Page):
     page.title = "La Bola Caliente"
-    page.bgcolor = "#0f0f0f"
+    page.bgcolor = "#111111"
     page.horizontal_alignment = "center"
     page.vertical_alignment = "center"
 
@@ -13,7 +13,7 @@ def main(page: ft.Page):
 
     titulo = ft.Text(
         "🔥 LA BOLA CALIENTE 🔥",
-        size=28,
+        size=30,
         weight=ft.FontWeight.BOLD,
         color="#FFD700"
     )
@@ -23,25 +23,26 @@ def main(page: ft.Page):
     bola = ft.Container(
         content=ft.Text(
             "00",
-            size=50,
+            size=55,
             weight=ft.FontWeight.BOLD,
             color="white"
         ),
-        width=160,
-        height=160,
+        width=170,
+        height=170,
         alignment=ft.alignment.center,
         bgcolor="#FF0000",
         border_radius=100,
+        shadow=ft.BoxShadow(
+            blur_radius=25,
+            color="#FF0000",
+            spread_radius=5
+        )
     )
 
     historial_lista = ft.Column()
     calientes_lista = ft.Column()
 
-    sonido = ft.Audio(
-        src="sonido.mp3",
-        autoplay=False
-    )
-
+    sonido = ft.Audio(src="sonido.mp3")
     page.overlay.append(sonido)
 
     def actualizar_historial():
@@ -65,11 +66,10 @@ def main(page: ft.Page):
 
         sonido.play()
 
-        # 🔄 animación fluida sin bloquear
-        for _ in range(20):
+        for _ in range(25):
             bola.content.value = str(random.randint(0, 99)).zfill(2)
             page.update()
-            await asyncio.sleep(0.05)
+            await asyncio.sleep(0.04)
 
         numero = random.randint(0, 99)
 
@@ -85,11 +85,12 @@ def main(page: ft.Page):
         page.update()
 
     boton = ft.ElevatedButton(
-        text="GIRAR",
+        text="🎰 GIRAR",
         on_click=generar,
         style=ft.ButtonStyle(
             bgcolor="#FFD700",
-            color="black"
+            color="black",
+            padding=20
         )
     )
 
