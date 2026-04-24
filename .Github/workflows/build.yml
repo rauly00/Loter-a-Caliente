@@ -1,0 +1,49 @@
+name: Build APK (Flet Stable)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      CI: "true"
+      FLET_FORCE_AUTO_INSTALL: "true"
+
+    steps:
+      # 📥 1. Clonar repositorio
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # 🐍 2. Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      # 📦 3. Instalar Flet
+      - name: Install Flet
+        run: |
+          pip install --upgrade pip
+          pip install flet
+
+      # 🏗️ 4. Build APK (optimizado y sin prompts)
+      - name: Build APK
+        run: |
+          yes | flet build apk --compile-app
+
+      # 🔍 5. Ver dónde se generó el APK (debug útil)
+      - name: Find APK
+        run: |
+          echo "Archivos APK encontrados:"
+          find . -name "*.apk"
+
+      # 📤 6. Subir APK como artifact (descargable en ZIP)
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: bola-caliente-apk
+          path: "**/*.apk"
