@@ -47,3 +47,15 @@ jobs:
         with:
           name: bola-caliente-apk
           path: "**/*.apk"
+      # 🔍 5. Ver dónde se generó el APK (debug útil)
+      - name: Find APK
+        run: |
+          echo "Archivos APK encontrados:"
+          find . -name "*.apk"
+
+      # 📤 6. Subir APK como artifact (descargable en ZIP)
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: bola-caliente-apk
+          path: "**/*.apk"
